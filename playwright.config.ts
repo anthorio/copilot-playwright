@@ -1,18 +1,16 @@
 import { defineConfig, devices } from '@playwright/test';
 
 /**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
-
-/**
- * See https://playwright.dev/docs/test-configuration.
+ * CONFIGURACIÓN PLAYWRIGHT - PROYECTO DE TESTS INDEPENDIENTE
+ * 
+ * ⚠️  IMPORTANTE: Este proyecto NO arranca la aplicación React.
+ * ⚠️  La aplicación debe estar corriendo en http://localhost:3000 ANTES de ejecutar los tests.
+ * 
+ * Este es un proyecto de tests completamente separado del proyecto de la aplicación.
  */
 export default defineConfig({
   testDir: './tests',
+  testIgnore: '**/disabled/**', // 🚫 Ignorar la carpeta disabled - tests que no se ejecutan
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -25,8 +23,8 @@ export default defineConfig({
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: 'http://localhost:3000', // 👈 Cambia este puerto por el de tu aplicación
+    /* Base URL apunta a la aplicación React que DEBE estar corriendo */
+    baseURL: 'http://localhost:3000', // � LA APLICACIÓN DEBE ESTAR CORRIENDO EN ESTE PUERTO
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
@@ -38,43 +36,19 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
-
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
-
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
-
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
+    // ✅ Solo se ejecutan tests en Chromium
+    // Otros navegadores están comentados intencionalmente
   ],
 
-  /* Run your local dev server before starting the tests */
-  webServer: {
-    command: 'npm run start', // 👈 Comando para iniciar tu aplicación
-    url: 'http://localhost:3000', // 👈 URL donde se ejecuta tu aplicación
-    reuseExistingServer: !process.env.CI, // Reutiliza el servidor si ya está corriendo
-    timeout: 120 * 1000, // 2 minutos de timeout para iniciar
-  },
+  /* 
+   * ❌ NO SE USA webServer - La aplicación React debe estar corriendo independientemente
+   * ❌ Este proyecto de tests NUNCA arranca la aplicación
+   * 
+   * Para arrancar tu aplicación React, usa:
+   * cd /ruta/a/tu/aplicacion/react
+   * npm start
+   * 
+   * LUEGO ejecuta los tests desde este proyecto:
+   * npm test
+   */
 });

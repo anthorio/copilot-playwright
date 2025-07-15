@@ -1,12 +1,18 @@
 {
-  "name": "copilot-playwright",
+  "name": "react-app-e2e-tests",
   "version": "1.0.0",
+  "description": "Tests E2E para aplicación React - Proyecto independiente que NO arranca la app",
   "main": "index.js",
-  "scripts": {},
-  "keywords": [],
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:ui": "playwright test --ui",
+    "show-report": "playwright show-report"
+  },
+  "keywords": ["playwright", "e2e", "testing", "react", "automation"],
   "author": "",
   "license": "ISC",
-  "description": "",
   "devDependencies": {
     "@playwright/test": "^1.54.1",
     "@types/node": "^24.0.13"
