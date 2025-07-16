@@ -13,6 +13,7 @@ Este proyecto de tests **NO arranca la aplicación React**. Es un repositorio co
 
 ```bash
 npm install
+npx playwright install
 ```
 
 ## 🧪 Ejecutar Tests
