@@ -11,7 +11,7 @@ test.describe('Test de Navegación Móvil - Menú Hamburguesa', () => {
     await expect(page).toHaveURL('http://localhost:3000/');
     
     // 2. Verificar que aparece el botón de menú hamburguesa
-    const hamburgerButton = page.locator('.hamburger, .menu-toggle, .navbar-toggle, button[aria-label="Menu"], .mobile-menu-button, [data-testid="hamburger-menu"]');
+    const hamburgerButton = page.locator('.nav-menu active, .menu-toggle, .navbar-toggle, button[aria-label="Menu"], .mobile-menu-button, [data-testid="mobile-menu-toggle"]');
     await expect(hamburgerButton.first()).toBeVisible();
     
     console.log('✅ Botón de menú hamburguesa visible en vista móvil');
@@ -20,13 +20,13 @@ test.describe('Test de Navegación Móvil - Menú Hamburguesa', () => {
     await hamburgerButton.first().click();
     
     // 4. Confirmar que se despliega el menú móvil
-    const mobileMenu = page.locator('.mobile-menu, .navbar-collapse, .menu-mobile, .hamburger-menu, [data-testid="mobile-menu"]');
+    const mobileMenu = page.locator('.nav-menu.active');
     await expect(mobileMenu.first()).toBeVisible();
     
     // Verificar que los enlaces del menú móvil están visibles
-    const mobileHomeLink = page.locator('.mobile-menu a:has-text("Home"), .navbar-collapse a:has-text("Home"), .menu-mobile a:has-text("Home")');
-    const mobileServicesLink = page.locator('.mobile-menu a:has-text("Services"), .navbar-collapse a:has-text("Services"), .menu-mobile a:has-text("Services")');
-    const mobileProductsLink = page.locator('.mobile-menu a:has-text("Products"), .navbar-collapse a:has-text("Products"), .menu-mobile a:has-text("Products")');
+    const mobileHomeLink = page.locator('[data-testid="nav-home-link"]');
+    const mobileServicesLink = page.locator('[data-testid="nav-services-link"]');
+    const mobileProductsLink = page.locator('[data-testid="nav-products-link"]');
     
     await expect(mobileHomeLink.first()).toBeVisible();
     await expect(mobileServicesLink.first()).toBeVisible();
@@ -57,7 +57,7 @@ test.describe('Test de Navegación Móvil - Menú Hamburguesa', () => {
     await expect(mobileMenu.first()).toBeVisible();
     
     // Hacer clic en otro enlace (Home) para completar el test
-    const mobileHomeLink2 = page.locator('.mobile-menu a:has-text("Home"), .navbar-collapse a:has-text("Home"), .menu-mobile a:has-text("Home")');
+    const mobileHomeLink2 = page.locator('[data-testid="nav-home-link"]');
     await mobileHomeLink2.first().click();
     
     // Verificar navegación a Home y cierre del menú

@@ -47,7 +47,7 @@ test.describe('Test de Dashboard - Navegación por Tabs', () => {
     await projectsTab.first().click();
     
     // 5. Confirmar cambio de contenido para Projects
-    const projectsContent = page.locator('.projects-content, .projects-section, #projects-content, [data-testid="projects-content"]');
+    const projectsContent = page.locator('.dashboard-content, .projects-list, #projects-content');
     await expect(projectsContent.first()).toBeVisible();
     
     // Verificar elementos específicos de Projects
@@ -70,7 +70,7 @@ test.describe('Test de Dashboard - Navegación por Tabs', () => {
     await notificationsTab.first().click();
     
     // Confirmar cambio de contenido para Notifications
-    const notificationsContent = page.locator('.notifications-content, .notifications-section, #notifications-content, [data-testid="notifications-content"]');
+    const notificationsContent = page.locator('.notifications-list, .notifications-section, #notifications-content');
     await expect(notificationsContent.first()).toBeVisible();
     
     // Verificar elementos específicos de Notifications
